@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/echarts/4.2.1-rc1/echarts.min.js"></script>
+</head>
+
+<body>
+    <div id="main" style="width: 900px;height:600px;"></div>
+    <script>
+        var myChart = echarts.init(document.getElementById('main'));
+        var option = {
+            //标题
+            title: {
+                text: '未来一周气温变化'
+            },
+            tooltip : {
+                trigger : 'axis'
+            },
+            legend : {
+                data : ['最高','最低'],
+                x : 'center'
+            },
+            toolbox : {
+                show : true,
+                orient : 'horizontal',
+                left : 'right',
+                top : 'top',
+                color : ['#e190ff','#22bb22','#4b0082','#d2691e'],
+                backgroundColor : 'rgba(0,0,0,0)',
+                borderColor : '#ccc',
+                borderWidth : 0,
+                padding : 5,
+                showTitle : true,
+                feature : {
+                    mark : {
+                        show : true,
+                        title : {
+                            mark : '辅助线-开关',
+                            markUndo : '辅助线-删除',
+                            markClear : '辅助线-清空'
+                        },
+                        lineStyle : {
+                            width : 1,
+                            color : '#1e90ff',
+                            type : 'dashed'
+                        }
+                    },
+                    dataZoom : {
+                        show : true,
+                        title : {
+                            dataZoom : '区域缩放',
+                            dataZoomReset : '区域缩放-后退'
+                        }
+                    },
+                    dataView : {
+                        show : true,
+                        title : '数据视图',
+                        readOnly : true,
+                        lang : ['数据视图','关闭','刷新'],
+                        optionIoContent : function(opt){
+                            console.loG(opt);
+                            var axisData = opt.xAxis[0].data;
+                            var series = opt.series;
+                            var table = '<table style = "width:100%;text-align:center"><tbody><tr>'
+                                        + '<td>时间</td>'
+                                        + '<td>' + series[0].name + '</td>'
+                                        + '<td>' + series[1].name + '</td>'
+                                        + '</tr>';
+                            for(var i = 0; i < axisData.length; i++){
+                                table += '<tr>'
+                                        + '<td>' + axisData[i] + '</td>'
+                                        + '<td>' + series[0].data[i] + '</td>'
+                                        + '<td>' + series[1].data[i] + '</td>'
+                                        + '</tr>';
+                            }
+                            table += '</tbody></table>'
+                            return table;
+                        }
+                    },
+                    magicType : {
+                        show : true,
+                        title : {
+                            line : '动态类型切换-折线图',
+                            bar  : '动态类型切换-柱状图',
+                            stack : '动态类型切换-堆积',
+                            tiled : '动态类型切换-平铺'
+                        },
+                        type : ['line','bar','stack','tiled']
+                    },
+                    restore : {
+                        show : true,
+                        title : '还原',
+                        color : 'black'
+                    },
+                    saveAsImage : {
+                        show : true,
+                        title : '保存为图片',
+                        type : 'jpeg',
+                        lang : ['点击本地保存']
+                    }
+                }
+            },
+            calculable : true,
+            dataZoom : {
+                show : true,
+                realtime : true,
+                start : 20,
+                end : 80,
+            },
+            xAxis : [
+                {
+                    type : 'category',
+                    boundaryGap : false,
+                    data : function(){
+                        var list = [];
+                        for(var i = 1; i <= 30; i++){
+                            list.push('2020-03-' + i)
+                        }
+                        return list;
+                    }()
+                }
+            ],
+            yAxis : [
+                {
+                    type : 'value'
+                }
+            ],
+            series : [
+                {
+                    name : '最高',
+                    type : 'line',
+                    data : function(){
+                        var list = [];
+                        for(var i = 1; i <= 30; i++){
+                            list.push(Math.round(Math.random() * 30));
+                        }
+                        return list;
+                    }()
+                },
+                {
+                    name : '最低',
+                    type : 'line',
+                    data : function(){
+                        var list = [];
+                        for(var i = 1; i <= 30; i++){
+                            list.push(Math.round(Math.random() * 10));
+                        }
+                        return list;
+                    }()
+                }
+            ]
+        };
+        myChart.setOption(option);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/echarts/4.2.1-rc1/echarts.min.js"></script>
+</head>
+<body>
+    <div id="main" style="width: 600px;height:400px;"></div>
+    <script>
+        var myChart = echarts.init(document.getElementById('main'));
+        var option = {
+            title : {
+                text : '某地区蒸发量和降水量',
+                backgroundColor : '#000',
+                textAlign : 'center',
+                textStyle : {
+                    color : '#fff'
+                },
+                left : 500
+            },
+            tooltip : {
+                trigger : 'axis'
+            },
+            legend : {
+                data : ['蒸发量','降水量'],
+                x : 'left'
+            },
+            // toolbox : {
+            //     show : true,
+            //     featture : {
+            //         mark : {
+            //             show : true
+            //         },
+            //         dataView : {
+            //             show : true,
+            //             readOnly : true
+            //         },
+            //         magicType : {
+            //             show : false,
+            //             type : ['line','bar']
+            //         },
+            //         restore : {
+            //             show : true
+            //         },
+            //         saveAsImage : {
+            //             show : true
+            //         }
+            //     }
+            // },
+            calculable : true,
+            xAxis : [
+                {
+                    type : 'category',
+                    data : ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
+                }
+            ],
+            yAxis : [
+                {
+                    type : 'value'
+                }
+            ],
+            series : [
+                {
+                    name : '蒸发量',
+                    type : 'bar',
+                    data : [2,4.9,7,23.2,25.6,76.7,135.6,162.2,32.6,20,6.4,3.3]
+                },
+                {
+                    name : '降水量',
+                    type : 'bar',
+                    data : [2.6,5.9,9,26.4,28.7,70.7,175.6,182.2,48.7,18.8,6,2.3]
+                }
+            ]
+        }
+        myChart.setOption(option);
+    </script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/echarts/4.2.1-rc1/echarts.min.js"></script>
+</head>
+<body>
+    <div id="main" style="width: 600px;height:500px;"></div>
+    <script>
+        var myChart = echarts.init(document.getElementById('main'));
+        var option = {
+            title : {
+                text : '某站点用户访问来源',
+                subtext : '纯属虚构',
+                x : 'center'
+            },
+            tooltip : {
+                trigger: 'item',  //提示框的样式
+                formatter: "{a} <br/>{b}: {c} ({d}%)"
+            },
+            legend : {
+                orient: 'vertical',
+                x: 'right',
+                data:['直接访问','邮件营销','联盟广告','视频广告','搜索引擎'],
+                textStyle:{    //图例文字的样式
+                    color:'#333',  //文字颜色
+                    fontSize:12    //文字大小
+                }
+            },
+            toolbox : {
+                show : true,
+                x : 'left',
+                feature : {
+                    mark : {
+                        show : true
+                    },
+                    dataView : {
+                        show : true,
+                        readOnly : true
+                    },
+                    restore : {
+                        show : true
+                    },
+                    saveAsImage : {
+                        show : true
+                    }
+                }
+            },
+            calculable : true,
+            series : [
+                {
+                    name : "访问来源",
+                    type : "pie",
+                    // radius : ['30%','70%'],
+                    // avoidLabelOverlap: false,
+                    // color:['#f5b26c','#54bbab','#a3e9a5'],
+                    radius : ['30%','70%'],
+                    center : ['50%','50%'],
+                    itemStyle : {
+                        normal : {
+                            show: true,
+                            formatter : '{b} : {c} ({d}%)'
+                        }
+                    },
+                    label: {
+                        normal: {  
+                            show: true,
+                            position: 'left'
+                        },
+                        emphasis: { 
+                            show: true,
+                            textStyle: {
+                                fontSize: '20',
+                                fontWeight: 'bold'
+                            }
+                        }
+                    },
+                    data:[
+                        {value:335, name:'直接访问'},
+                        {value:310, name:'邮件营销'},
+                        {value:234, name:'联盟广告'},
+                        {value:135, name:'视频广告'},
+                        {value:1548, name:'搜索引擎'}
+                    ]
+                }
+            ]
+        }
+        myChart.setOption(option);
+    </script>
+</body>
+</html>
